@@ -1,0 +1,109 @@
+/* F O N T S */
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
+/* R E S E T */
+html {
+    box-sizing: border-box;
+    font-size: 16px;
+  }
+  
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+  
+  body, h1, h2, h3, h4, h5, h6, p, ol, ul {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+  }
+  
+  ol, ul {
+    list-style: none;
+  }
+  
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+/* G E N E R A L */
+body{
+    font-family: Source Serif 4, sans-serif;
+    color: antiquewhite;
+}
+main{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 100dvh;
+    
+    header{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        h1 {
+            font-size: 3.2rem;
+            font-weight: 500;
+        }
+        h2{
+            font-size: 1.8rem;
+            font-weight: 300;
+        }
+        figure{
+            background-color: #c2b9ae57;
+            border-radius: 30%;
+            border: 10px solid;
+            overflow: hidden;
+            height: 200px;
+            width: 200px;
+        }
+        h3{
+            font-size: 1.8rem;
+            font-weight: 200;
+        }
+    }
+    menu{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 0.6rem;
+        a:is(:link, :visited){
+            background-color: #c2b9ae57;
+            border-radius: 20px;
+            color: antiquewhite;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding-block: 0.4rem;
+            text-decoration: none;
+            width: 220px;
+            transition: all 0.5s ease-in;
+            span {
+                background-color: #3a3333;
+                border: 2px solid #3a3333;
+                border-radius: 50%;
+                color: antiquewhite;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 40px;
+                width: 40px;
+            }
+            &:hover {
+                transform: scale(1.05);
+            }
+            &:hover span{
+                transform: translateX(5px);
+                transition: all 0.5s ease-in;
+                border-radius: 50px;
+                width: 50px;
+            }
+        }
+    }
+}
+/* M A I N  M E N U */
+body.main-menu{
+    background-color: #3a3333;
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='30' viewBox='0 0 1000 120'%3E%3Cg fill='none' stroke='%23222' stroke-width='10' %3E%3Cpath d='M-500 75c0 0 125-30 250-30S0 75 0 75s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 45c0 0 125-30 250-30S0 45 0 45s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 105c0 0 125-30 250-30S0 105 0 105s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 15c0 0 125-30 250-30S0 15 0 15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500-15c0 0 125-30 250-30S0-15 0-15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 135c0 0 125-30 250-30S0 135 0 135s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3C/g%3E%3C/svg%3E");
+}
