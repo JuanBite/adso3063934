@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>12-challenge-memory-game</title>
     <link rel="stylesheet" href="../css/master.css">
+    <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body class="jquery">
     <nav class="nav">
@@ -17,10 +18,21 @@
             <h1>12-Memory-game</h1>
             <h2>Build a memory game using jQuery..</h2>
         </header>
-        <section class="section">
-            
-        </section>
+        
+            <div class="game-container">
+        <h1>Juego de Memoria</h1>
+        <div class="game-board" id="gameBoard"></div>
+        <div class="controls">
+            <button onclick="newGame()">Nuevo Juego</button>
+        </div>
+    </div>
+    <div class="overlay" id="overlay"></div>
+    <div class="win-message" id="winMessage">
+        <p id="finalStats"></p>
+        <button onclick="closeWinMessage()">Continuar</button>
+    </div>
     </main>
     <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>
