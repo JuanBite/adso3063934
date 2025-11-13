@@ -69,7 +69,7 @@
                     <small class="badge badge-outline badge-error w-full">{{ $message }}</small>
                 @enderror
 
-                <button class="btn btn-accent hover:bg-[#a8f5b666] hover:text-white mt-4">Login</button>
+                <button class="btn btn-accent mt-4">Login</button>
 
                 <p class="text-sm text-center mt-4">
                     Don’t have an account?

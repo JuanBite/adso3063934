@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body class="min-h-[100dvh] bg-[url(images/fondo.jpg)] bg-center bg-cover w-full flex flex-col gap-6 p-8 items-center justify-center">
+<body class="min-h-[100dvh] bg-[url({{asset ('images/fondo.jpg')}})] bg-center bg-cover w-full flex flex-col gap-6 p-8 items-center justify-center">
     @yield('content')
 </body>
 </html>

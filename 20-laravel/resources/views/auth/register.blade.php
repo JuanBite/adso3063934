@@ -149,7 +149,7 @@
                 </div>
             </div>
             <div class="flex flex-wrap justify-center items-center">
-                <button class="btn btn-accent hover:bg-[#a8f5b666] hover:text-white mt-4 w-full">Register</button>
+                <button class="btn btn-accent mt-4 w-full">Register</button>
                 <p class="text-sm text-center mt-2">
                     Already registered?
                     <a href="{{ route('login') }}" class="underline hover:text-gray-300">Sign in</a>
