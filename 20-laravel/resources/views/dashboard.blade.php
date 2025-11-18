@@ -7,6 +7,7 @@
 </h1>
 {{-- Cards --}}
 <div class="flex flex-wrap gap-4 justify-center">
+  @if(Auth::user()->role == 'Administrator')
     {{-- Module Users --}}
 <div class="card bg-[#99a1af66] w-96 shadow-sm">
   <figure>
@@ -154,6 +155,7 @@
         </a>
     </div>
   </div>
-</div> 
+</div>
+@endif
 </div>
 @endsection
