@@ -34,14 +34,14 @@ class UserController extends Controller
     {
        // dd($request->all());
        $validation = $request->validate([
-            'document' => ['required', 'numeric', 'unique:' .User::class],
-            'fullname' => ['required', 'string', 'max:255'],
-            'gender' => ['required'],
+            'document'  => ['required', 'numeric', 'unique:' .User::class],
+            'fullname'  => ['required', 'string', 'max:255'],
+            'gender'    => ['required'],
             'birthdate' => ['required', 'date'],
-            'photo' => ['required', 'image'],
-            'phone' => ['required'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed'],
+            'photo'     => ['required', 'image'],
+            'phone'     => ['required'],
+            'email'     => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'password'  => ['required', 'confirmed'],
         ]);
         if($validation)
         {
@@ -81,7 +81,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('users.edit')->with('user', $user);
     }
 
     /**
@@ -89,7 +89,42 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        // dd($request->all());
+       $validation = $request->validate([
+            'document'  => ['required', 'numeric', 'unique:' .User::class . ',document,' . $user->id],
+            'fullname'  => ['required', 'string', 'max:255'],
+            'gender'    => ['required'],
+            'birthdate' => ['required', 'date'],
+            'phone'     => ['required'],
+            'email'     => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class . ',email,' . $user->id],
+        ]);
+        if($validation)
+        {
+            // dd($request->all());
+            if($request->hasFile('photo')) {
+                $photo = time().'.'.$request->photo->extension();
+                $request->photo->move(public_path('images'), $photo);
+                if($request->originPhoto != 'no-photo.png');
+                {
+                    unlink(public_path('images/'). $request->originPhoto);
+                }
+            } else {
+                    $photo = $request->originPhoto;
+                }
+
+        }
+
+        $user->document     = $request->document;
+        $user->fullname     = $request->fullname;
+        $user->gender       = $request->gender;
+        $user->birthdate    = $request->birthdate;
+        $user->photo        = $photo;
+        $user->phone        = $request->phone;
+        $user->email        = $request->email;
+        if($user->save())
+        {
+            return redirect('users')->with('message', value: 'The user: '.$user->fullname.' has been updated successfully.');
+        }
     }
 
     /**
@@ -97,6 +132,13 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        if($user->photo != 'no-photo.png')
+        {
+            unlink(public_path('images/'). $user->photo);
+        }
+        if($user->delete())
+        {
+            return redirect('users')->with('message', value: 'The user: '. $user->fullname. ' was successfully deleted.');
+        }
     }
 }

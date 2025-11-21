@@ -57,18 +57,18 @@ class UserFactory extends Factory
         }
 
         return [
-            'document' => fake()->numerify('75#######'),
-            'fullname' => $fullname,
-            'gender' => $gender,
-            'birthdate' => fake()->date(),
-            'photo' => 'images/' . $imageName,
-            'phone' => fake()->numerify('3#########'),
-            'email' => fake()->unique()->safeEmail(),
+            'document'          => fake()->numerify('75#######'),
+            'fullname'          => $fullname,
+            'gender'            => $gender,
+            'birthdate'         => fake()->date(),
+            'photo'             => 'images/' . $imageName,
+            'phone'             => fake()->numerify('3#########'),
+            'email'             => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
-            'active' => 1,
-            'role' => 'customer',
+            'password'          => static::$password ??= Hash::make('password'),
+            'remember_token'    => Str::random(10),
+            'active'            => 1,
+            'role'              => 'customer',
         ];
     }
 
