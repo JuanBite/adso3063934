@@ -32,6 +32,12 @@ Route::middleware('auth')->group(function () {
     // 'pets'     => PetController::class,
     // 'adoptions' => AdoptionController::class
     ]);
+    // Search Users
+    Route::post('search/users', [UserController::class, 'search']);
+    // Export
+    Route::get('export/users/pdf', [UserController::class, 'pdf']);
+    Route::get('export/users/excel', [UserController::class, 'excel']);
+
 });
 
 Route::get('show/users', function() {

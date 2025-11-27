@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class UserController extends Controller
 {
@@ -14,7 +15,7 @@ class UserController extends Controller
     {
         // $users = User::all();
         // $users = User::paginate(20);
-        $users = User::orderBy('id', 'desc')->paginate(20);
+        $users = User::orderBy('id', 'desc')->paginate(15);
         // dd($users->toArray());
         return view('users.index')->with('users', $users);
     }
@@ -140,5 +141,22 @@ class UserController extends Controller
         {
             return redirect('users')->with('message', value: 'The user: '. $user->fullname. ' was successfully deleted.');
         }
+    }
+    public function search (Request $request)
+    {
+            $users = User::names($request->q)->paginate(15);
+            return view('users.search')->with('users', $users);
+    }
+
+    public function pdf()
+    {
+        $users = User::all();
+        $pdf = Pdf::loadView('users.pdf', compact('users'));
+        return $pdf->download('allusers.pdf');
+        }
+
+    public function excel()
+    {
+        return 'EXCEL';
     }
 }
