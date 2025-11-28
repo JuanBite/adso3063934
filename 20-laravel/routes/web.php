@@ -3,6 +3,7 @@
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Pet;
+use App\Http\Controllers\PetController;
 
 
 Route::get('/', function () {
@@ -29,7 +30,7 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::resources([
     'users'    => UserController::class,
-    // 'pets'     => PetController::class,
+    'pets'     => PetController::class,
     // 'adoptions' => AdoptionController::class
     ]);
     // Search Users
@@ -37,6 +38,7 @@ Route::middleware('auth')->group(function () {
     // Export
     Route::get('export/users/pdf', [UserController::class, 'pdf']);
     Route::get('export/users/excel', [UserController::class, 'excel']);
+    Route::post('import/users', [UserController::class, 'import']);
 
 });
 

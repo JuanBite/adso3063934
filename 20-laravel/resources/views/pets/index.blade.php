@@ -1,9 +1,9 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Module Users: Larapets 🐒')
+@section('title', 'Module Pets: Larapets 🐒')
 
 @section('content')
-<h1 class="text-4xl text-black flex gap-2 items-center justify-center pb-4 border-b-2 border-black">Module Users
+<h1 class="text-4xl text-black flex gap-2 items-center justify-center pb-4 border-b-2 border-black">Module Pets
   <svg xmlns="http://www.w3.org/2000/svg" class="size-12" fill="currentColor" viewBox="0 0 256 256">
     <path
       d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z">
@@ -18,7 +18,7 @@
         d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm48-88a8,8,0,0,1-8,8H136v32a8,8,0,0,1-16,0V136H88a8,8,0,0,1,0-16h32V88a8,8,0,0,1,16,0v32h32A8,8,0,0,1,176,128Z">
       </path>
     </svg>
-    <span class="hidden md:inline">Add User</span>
+    <span class="hidden md:inline">Add Pet</span>
   </a>
   <a class=" join-item btn btn-info" href="{{ url('export/users/pdf') }}"><svg xmlns="http://www.w3.org/2000/svg"
       class="size-6" fill="currentColor" viewBox="0 0 256 256">
@@ -54,11 +54,13 @@
     <thead class="bg-[#fff9]">
       <tr class="text-black">
         <th class="hidden md:table-cell">Id</th>
-        <th>Photo</th>
-        <th class="hidden md:table-cell">Document</th>
-        <th>Full Name</th>
-        <th class="hidden md:table-cell">Rol</th>
-        <th class="hidden md:table-cell">Active</th>
+        <th>Image</th>
+        <th>Name</th>
+        <th class="hidden md:table-cell">Weight</th>
+        <th>Kind</th>
+        <th>Age</th>
+        <th class="hidden md:table-cell">Breed</th>
+        <th class="hidden md:table-cell">Location</th>
         <th>
           <form action="">
             @csrf
@@ -76,32 +78,24 @@
       </tr>
     </thead>
     <tbody class="datalist">
-      @foreach ($users as $user)
-      <tr @if($user->id % 2 == 0) class="bg-[#0003]" @endif>
-        <th class="hidden md:table-cell">{{$user->id}}</th>
+      @foreach ($pets as $pet)
+      <tr @if($pet->id % 2 == 0) class="bg-[#0003]" @endif>
+        <th class="hidden md:table-cell">{{$pet->id}}</th>
         <th>
           <div class="avatar">
             <div class="mask mask-squircle w-16">
-              <img src="{{ asset('images/' . $user->photo) }}" />
+              <img src="{{ asset('images/' . $pet->image) }}" />
             </div>
-        </th>
-        <td class="hidden md:table-cell">{{$user->document}}</td>
-        <td>{{$user->fullname}}</td>
-        <td class="hidden md:table-cell">@if($user->role == 'Administrator')
-          <div class="badge badge-soft badge-warning w-full">Admin</div>
-          @else
-          <div class="badge badge-soft badge-primary w-full">User</div>
-          @endif
-        </td>
-        <td class="hidden md:table-cell">@if($user->active == 1)
-          <div class="badge badge-soft badge-accent w-full">Active</div>
-          @else
-          <div class="badge badge-soft badge-error w-full">Inactive</div>
-          @endif
-        </td>
+          </th>
+        <td>{{$pet->name}}</td>
+        <td class="hidden md:table-cell">{{$pet->weight}}</td>
+        <td>{{$pet->kind}}</td>
+        <td>{{($pet->age)}}</td>
+        <td class="hidden md:table-cell">{{($pet->breed)}}</td>
+        <td class="hidden md:table-cell">{{($pet->location)}}</td>
         <td>
           <div class="flex items-center justify-center gap-4 h-full">
-            <a href="{{ url('users/'.$user->id) }}" class="group badge badge-outline border-white">
+            <a href="{{ url('pets/'.$pet->id) }}" class="group badge badge-outline border-white">
               <svg xmlns="http://www.w3.org/2000/svg"
                 class="size-6 group-hover:text-green-500 hover:scale-120 transition" fill="currentColor"
                 viewBox="0 0 256 256">
@@ -110,7 +104,7 @@
                 </path>
               </svg>
             </a>
-            <a href="{{ url('users/'.$user->id.'/edit') }}" class="group badge badge-outline border-white">
+            <a href="{{ url('pets/'.$pet->id.'/edit') }}" class="group badge badge-outline border-white">
               <svg xmlns="http://www.w3.org/2000/svg"
                 class="size-6 group-hover:text-blue-500 hover:scale-120 transition" fill="currentColor"
                 viewBox="0 0 256 256">
@@ -119,7 +113,7 @@
                 </path>
               </svg>
             </a>
-            <a href="javascript:;" data-fullname="{{ $user->fullname }}"
+            <a href="javascript:;" data-fullname="{{ $pet->name }}"
               class="group badge badge-outline border-white btn-delete">
               <svg xmlns="http://www.w3.org/2000/svg" class="size-6 group-hover:text-red-500 hover:scale-120 transition"
                 fill="currentColor" viewBox="0 0 256 256">
@@ -128,7 +122,7 @@
                 </path>
               </svg>
             </a>
-            <form class="hidden" method="POST" action="{{ url('users/'.$user->id) }}">
+            <form class="hidden" method="POST" action="{{ url('pets/'.$pet->id) }}">
               @csrf
               @method('delete')
             </form>
@@ -137,8 +131,8 @@
       </tr>
       @endforeach
       <tr class="bg-[#fff9]">
-        <td colspan="7">
-          {{ $users->links('layouts.pagination') }}
+        <td colspan="9">
+          {{ $pets->links('layouts.pagination') }}
         </td>
       </tr>
     </tbody>
