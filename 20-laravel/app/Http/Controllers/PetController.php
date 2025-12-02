@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pet;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\PetsExport;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Imports\PetsImport;
+
 
 class PetController extends Controller
 {
@@ -32,4 +37,126 @@ class PetController extends Controller
             $pets = Pet::names($request->q)->paginate(15);
             return view('pets.search')->with('pets', $pets);
     }
+
+    public function edit(Pet $pet)
+    {
+        return view('pets.edit')->with('pet', $pet);
+    }
+
+    public function update(Request $request, Pet $pet)
+    {
+        // dd($request->all());
+       $validation = $request->validate([
+            'weight'        => ['required', 'numeric'],
+            'name'          => ['required', 'string', 'max:255'],
+            'kind'          => ['required'],
+            'age'           => ['required'],
+            'breed'         => ['required'],
+            'location'      => ['required'],
+        ]);
+        if($validation)
+        {
+            // dd($request->all());
+            if($request->hasFile('image')) {
+                $image = time().'.'.$request->image->extension();
+                $request->image->move(public_path('images'), $image);
+                if($request->originImage != 'no-image.png');
+                {
+                    unlink(public_path('images/'). $request->originImage);
+                }
+            } else {
+                    $image = $request->originImage;
+                }
+
+        }
+
+        $pet->weight            = $request->weight;
+        $pet->name              = $request->name;
+        $pet->kind              = $request->kind;
+        $pet->age               = $request->age;
+        $pet->breed             = $request->breed;
+        $pet->location          = $request->location;
+        $pet->image             = $image;
+        if($pet->save())
+        {
+            return redirect('pets')->with('message', value: 'The pet: '.$pet->name.' has been updated successfully.');
+        }
+    }
+
+     /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Pet $pet)
+    {
+        if($pet->image != 'no-image.png')
+        {
+            unlink(public_path('images/'). $pet->image);
+        }
+        if($pet->delete())
+        {
+            return redirect('pets')->with('message', value: 'The pet: '. $pet->name. ' was successfully deleted.');
+        }
+    }
+
+    public function create()
+    {
+        return view('pets.create');
+    }
+
+    public function store(Request $request)
+    {
+       // dd($request->all());
+       $validation = $request->validate([
+            'name'          => ['required', 'string', 'max:255'],
+            'kind'          => ['required'],
+            'weight'        => ['required'],
+            'age'           => ['required'],
+            'image'         => ['required', 'image'],
+            'breed'         => ['required'],
+            'location'      => ['required'],
+            'description'   => ['required'],
+        ]);
+        if($validation)
+        {
+        //    dd($request->all());
+            if($request->hasFile('image')) {
+                $image = time().'.'.$request->image->extension();
+                $request->image->move(public_path('images'), $image);
+            }
+
+        }
+        $pet = new Pet;
+        $pet->name         = $request->name;
+        $pet->kind         = $request->kind;
+        $pet->weight       = $request->weight;
+        $pet->age          = $request->age;
+        $pet->image        = $image;
+        $pet->breed        = $request->breed;
+        $pet->location     = $request->location;
+        $pet->description  = $request->description;
+        if($pet->save())
+        {
+            return redirect('pets')->with('message', value: 'The pet: '.$pet->name.' has been created successfully.');
+        }
+
+    }
+
+    public function pdf()
+    {
+         $pets = Pet::all();
+         $pdf = Pdf::loadView('pets.pdf', compact('pets'));
+         return $pdf->download('allpets.pdf');
+        }
+
+    public function excel()
+    {
+         return  Excel::download(new PetsExport, 'allpets.xlsx');
+    }
+    public function import(Request $request)
+    {
+         $file = $request->file('file');
+         Excel:: import(new PetsImport, $file);
+         return redirect()->back()->with('message', value: 'Pets imported successfully.');
+    }
+
 }

@@ -51,7 +51,7 @@
         <span class="text-[#fff9] font-semibold">Weight:</span> <span>{{ $pet->weight }} kg</span>
         </li>
         <li class="list-row">
-        <span class="text-[#fff9] font-semibold">Age:</span> <span>{{ $pet->age }}</span>
+        <span class="text-[#fff9] font-semibold">Age:</span> <span>{{ $pet->age }} Y/M</span>
         </li>
         <li class="list-row">
         <span class="text-[#fff9] font-semibold">Breed:</span> <span>{{ $pet->breed }}</span>

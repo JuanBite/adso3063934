@@ -35,10 +35,15 @@ Route::middleware('auth')->group(function () {
     ]);
     // Search Users
     Route::post('search/users', [UserController::class, 'search']);
+    Route::post('search/pets', [PetController::class, 'search']);
     // Export
     Route::get('export/users/pdf', [UserController::class, 'pdf']);
     Route::get('export/users/excel', [UserController::class, 'excel']);
     Route::post('import/users', [UserController::class, 'import']);
+
+    Route::get('export/pets/pdf', [PetController::class, 'pdf']);
+    Route::get('export/pets/excel', [PetController::class, 'excel']);
+    Route::post('import/pets', [PetController::class, 'import']);
 
 });
 
