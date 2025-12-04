@@ -56,8 +56,6 @@
         <th class="hidden md:table-cell">Id</th>
         <th>Image</th>
         <th>Name</th>
-        <th class="hidden md:table-cell">Weight</th>
-        <th>Kind</th>
         <th>Age</th>
         <th class="hidden md:table-cell">Breed</th>
         <th class="hidden md:table-cell">Location</th>
@@ -88,8 +86,6 @@
             </div>
           </th>
         <td>{{$pet->name}}</td>
-        <td class="hidden md:table-cell">{{$pet->weight}}</td>
-        <td>{{$pet->kind}}</td>
         <td>{{($pet->age)}}</td>
         <td class="hidden md:table-cell">{{($pet->breed)}}</td>
         <td class="hidden md:table-cell">{{($pet->location)}}</td>
@@ -131,7 +127,7 @@
       </tr>
       @endforeach
       <tr class="bg-[#fff9]">
-        <td colspan="9">
+        <td colspan="7">
           {{ $pets->links('layouts.pagination') }}
         </td>
       </tr>

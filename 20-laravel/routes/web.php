@@ -4,7 +4,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Pet;
 use App\Http\Controllers\PetController;
-
+use App\Http\Controllers\AdoptionController;
 
 Route::get('/', function () {
     // return "This is a Route: 😊";
@@ -32,10 +32,13 @@ Route::middleware('auth')->group(function () {
     'users'    => UserController::class,
     'pets'     => PetController::class,
     // 'adoptions' => AdoptionController::class
-    ]);
+]);
+Route::get('adoptions', [AdoptionController::class, 'index']);
+Route::get('adoptions/{id}', [AdoptionController::class, 'show']);
     // Search Users
     Route::post('search/users', [UserController::class, 'search']);
     Route::post('search/pets', [PetController::class, 'search']);
+    Route::post('search/adoptions', [AdoptionController::class, 'search']);
     // Export
     Route::get('export/users/pdf', [UserController::class, 'pdf']);
     Route::get('export/users/excel', [UserController::class, 'excel']);
@@ -44,6 +47,10 @@ Route::middleware('auth')->group(function () {
     Route::get('export/pets/pdf', [PetController::class, 'pdf']);
     Route::get('export/pets/excel', [PetController::class, 'excel']);
     Route::post('import/pets', [PetController::class, 'import']);
+
+    Route::get('export/adoptions/pdf', [AdoptionController::class, 'pdf']);
+    Route::get('export/adoptions/excel', [AdoptionController::class, 'excel']);
+    Route::post('import/adoptions', [AdoptionController::class, 'import']);
 
 });
 
