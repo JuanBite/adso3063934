@@ -30,31 +30,43 @@
   </a>
 </div>
 
-@foreach ($adopts as $adopt )
-<div class="avatar-group -space-x-6">
-  <div class="avatar">
-    <div class="w-24">
-      <img src="{{ asset ('images/'.$adopt->user->photo) }}" />
+<label class="input text-black">
+  <svg class="h-[1em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
+      <circle cx="11" cy="11" r="8"></circle>
+      <path d="m21 21-4.3-4.3"></path>
+    </g>
+  </svg>
+  <input type="search" required placeholder="Search" name="qsearch" id="qsearch" />
+</label>
+
+@csrf
+<div class="datalist flex justify-center items-center flex-col gap-4">
+  @foreach ($adopts as $adopt )
+  <div class="avatar-group -space-x-6">
+    <div class="avatar">
+      <div class="w-24">
+        <img src="{{ asset ('images/'.$adopt->user->photo) }}" />
+      </div>
+    </div>
+    <div class="avatar">
+      <div class="w-24">
+        <img src="{{ asset ('images/'.$adopt->pet->image) }}" />
+      </div>
     </div>
   </div>
-  <div class="avatar">
-    <div class="w-24">
-      <img src="{{ asset ('images/'.$adopt->pet->image) }}" />
-    </div>
-  </div>
-</div>
-<h4 class="text-white">
-  <span class="underline font-bold">{{ $adopt->pet->name }}</span>
-   adopted by 
-  <span>{{ $adopt->user->fullname }}</span>
-   on {{ $adopt->created_at->diffForHumans() }}
-</h4>
-<a href="{{ 'adoptions/' . $adopt->id }}" class="btn btn-info">
+  <h4 class="text-white">
+    <span class="underline font-bold">{{ $adopt->pet->name }}</span>
+    adopted by
+    <span>{{ $adopt->user->fullname }}</span>
+    on {{ $adopt->created_at->diffForHumans() }}
+  </h4>
+  <a href="{{ 'adoptions/' . $adopt->id }}" class="btn btn-info">
     More info
-</a>
-<span class="border b-1 border-white w-4/12"></span>
-    
-@endforeach
+  </a>
+  <span class="border b-1 border-white w-8/12"></span>
+  @endforeach
+</div>
 
 @endsection
 
@@ -80,7 +92,7 @@
                 
                 $token = $('input[name=_token]').val()
                 
-                $.post("search/pets", {'q': query, '_token': $token},
+                $.post("search/adoptions", {'q': query, '_token': $token},
                     function (data) {
                         $('.datalist').html(data).hide().fadeIn(1000)
                     }
@@ -90,11 +102,11 @@
                 event.preventDefault()
                 const query = $(this).val()
                 
-                $('.datalist').html(`<tr>
-                                        <td colspan="9" class="text-center py-18">
-                                            <span class="loading loading-spinner loading-xl"></span>
-                                        </td>
-                                    </tr>`)
+                $('.datalist').html(`
+                                      <div class="text-center py-18">
+                                          <span class="loading loading-spinner loading-xl"></span>
+                                      </div>
+                                    `)
                 
                 if(query != '')
                 {
@@ -102,7 +114,7 @@
                 } else
                 {
                   setTimeout(() => {
-                  window.location.replace('pets')
+                  window.location.replace('adoptions')
                 }, 500);
                 }
             })
@@ -114,6 +126,7 @@
                 $(this).parent().submit()
             })
   })
+  
 </script>
 
 

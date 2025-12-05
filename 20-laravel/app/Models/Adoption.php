@@ -27,4 +27,18 @@ class Adoption extends Model
     {
         return $this->belongsTo(Pet::class);
     }
+
+    public function scopeNames($adopts, $q)
+{
+    if (trim($q)) {
+        $adopts
+            ->join('users', 'users.id', '=', 'adoptions.user_id')
+            ->join('pets', 'pets.id', '=', 'adoptions.pet_id')
+            ->where(function($query) use ($q) {
+                $query->where('users.fullname', 'LIKE', "%{$q}%")
+                      ->orWhere('pets.name', 'LIKE', "%{$q}%");
+            })
+            ->select('adoptions.*');
+    }
+}
 }

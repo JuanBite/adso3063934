@@ -26,5 +26,10 @@ class AdoptionController extends Controller
         return view('adoptions.show')->with('adopt', $adopt);
     }
 
+    public function search(Request $request)
+    {
+        $adopts = Adoption::names($request->q)->orderby('id', 'desc')->paginate(15);
+        return view('adoptions.search')->with('adopts', $adopts);
+    }
 
 }
