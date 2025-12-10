@@ -61,32 +61,50 @@ class CustomerController extends Controller
     //My Adoptions
     public function myadoptions()
     {
-        return "My adoptions";
+        $adopts = Adoption::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->get();
+
+        return view('customer.myadoptions')->with('adopts', $adopts);
     }
 
-    public function showadoption(Request $request)
+    public function showadoptions(Request $request)
     {
-       
+        $adopt = Adoption::find($request->id);
+       return view('customer.showadoptions')->with('adopt', $adopt);
     }
 
     //Make Adoption
     public function listpets()
     {
-        
+        $pets = Pet::where('status', 0)->orderBy('id', 'desc')->paginate(15);
+        return view('customer.makeadoption')->with('pets', $pets);
     }
 
     public function confirmadoption(Request $request)
     {
-        
+        $pet = Pet::find($request->id);
+        return view('customer.confirmadoption')->with('pet', $pet);
     }
 
     public function makeadoption(Request $request)
     {
-        
+        $adopt = new Adoption();
+        $adopt->user_id = Auth::user()->id;
+        $adopt->pet_id = $request->id;
+        $adopt->created_at = now();
+        $adopt->updated_at = now();
+        if ($adopt->save()) {
+            // actualizar estado de la mascota
+            $pet = Pet::find($request->id);
+            $pet->status = 1; // adoptado
+            if ($pet->save()) {
+                return redirect('myadoptions')->with('success', value: Auth::user()->fullname . ' has adopted ' . $pet->name . '!');
+            }
+        }
     }
 
     public function search(Request $request)
     {
-        
+        $pets = Pet::kinds($request->q)->orderBy('id', 'desc')->paginate(20);
+        return view('customer.search')->with('pets', $pets);
     }
 }

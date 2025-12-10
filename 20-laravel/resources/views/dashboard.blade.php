@@ -209,55 +209,15 @@
 
       {{-- Customer --}}
       @if(Auth::user()->role == 'customer')
-        {{-- My Profile --}}
-  <div class="card bg-[#99a1af66] w-96 shadow-sm">
-    <figure>
-      <img src="{{ asset('images/moduleUser.png') }}" alt="Info" />
-    </figure>
-    <div class="card-body text-white">
-      <h2 class="card-title ">My Profile</h2>
-      <div class="card-actions justify-end">
-        <a class="btn btn-accent justify-center text-white" href="{{ url('myprofile')  }}"> Enter<svg
-            xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor" viewBox="0 0 256 256">
-            <path
-              d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm29.66-93.66a8,8,0,0,1,0,11.32l-40,40a8,8,0,0,1-11.32-11.32L140.69,128,106.34,93.66a8,8,0,0,1,11.32-11.32Z">
-            </path>
-          </svg>
-        </a>
-      </div>
-    </div>
-  </div>
-  {{-- Cards --}}
-  <div class="flex flex-wrap gap-4 justify-center">
-    {{-- My Adoptions --}}
-    <div class="card bg-[#99a1af66] w-96 shadow-sm">
-      <figure>
-        <img src="{{ asset('images/modulePet.png') }}" alt="Shoes" />
-      </figure>
-      <div class="card-body text-white">
-        <h2 class="card-title ">My Adoptions</h2>
-        <div class="card-actions justify-end">
-          <a class="btn btn-accent justify-center text-white" href="{{ url('myadoptions')  }}"> Enter<svg
-              xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor" viewBox="0 0 256 256">
-              <path
-                d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm29.66-93.66a8,8,0,0,1,0,11.32l-40,40a8,8,0,0,1-11.32-11.32L140.69,128,106.34,93.66a8,8,0,0,1,11.32-11.32Z">
-              </path>
-            </svg>
-          </a>
-        </div>
-      </div>
-    </div>
-    {{-- Cards --}}
-    <div class="flex flex-wrap gap-4 justify-center">
-      {{-- Make Adoption --}}
+      {{-- My Profile --}}
       <div class="card bg-[#99a1af66] w-96 shadow-sm">
         <figure>
-          <img src="{{ asset('images/moduleAdoption.png') }}" alt="Shoes" />
+          <img src="{{ asset('images/moduleUser.png') }}" alt="Info" />
         </figure>
         <div class="card-body text-white">
-          <h2 class="card-title ">Make Adoption</h2>
+          <h2 class="card-title ">My Profile</h2>
           <div class="card-actions justify-end">
-            <a class="btn btn-accent justify-center text-white" href="{{ url('makeadoption')  }}"> Enter<svg
+            <a class="btn btn-accent justify-center text-white" href="{{ url('myprofile')  }}"> Enter<svg
                 xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor" viewBox="0 0 256 256">
                 <path
                   d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm29.66-93.66a8,8,0,0,1,0,11.32l-40,40a8,8,0,0,1-11.32-11.32L140.69,128,106.34,93.66a8,8,0,0,1,11.32-11.32Z">
@@ -265,50 +225,92 @@
               </svg>
             </a>
           </div>
-      </div>
-    </div>
-      @endif 
-
-    </div>
-    {{-- Modal --}}
-    <dialog id="modal_message" class="modal">
-      <div class="modal-box bg-sucess">
-        <h3 class="text-lg font-bold">Edited Duccessfully!</h3>
-        <div role="alert" class="alert alert-success">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <span>{{session('message')}}</span>
         </div>
       </div>
-      <form method="dialog" class="modal-backdrop">
-        <button>close</button>
-      </form>
-    </dialog>
-
-    
-    <dialog id="modal_session" class="modal">
-      <div class="modal-box bg-sucess">
-        <h3 class="text-lg font-bold">Sorry!</h3>
-        <div role="alert" class="alert alert-error">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none"
-            viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <span>{{session('error')}}</span>
+      {{-- Cards --}}
+      <div class="flex flex-wrap gap-4 justify-center">
+        {{-- My Adoptions --}}
+        <div class="card bg-[#99a1af66] w-96 shadow-sm">
+          <figure>
+            <img src="{{ asset('images/modulePet.png') }}" alt="Shoes" />
+          </figure>
+          <div class="card-body text-white">
+            <h2 class="card-title ">My Adoptions<button class="btn btn-info">{{ App\Models\Adoption::Where('user_id', Auth::user()->id)->count()}}</button></h2>
+            
+            <div class="card-actions justify-end">
+              <a class="btn btn-accent justify-center text-white" href="{{ url('myadoptions')  }}"> Enter<svg
+                  xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor" viewBox="0 0 256 256">
+                  <path
+                    d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm29.66-93.66a8,8,0,0,1,0,11.32l-40,40a8,8,0,0,1-11.32-11.32L140.69,128,106.34,93.66a8,8,0,0,1,11.32-11.32Z">
+                  </path>
+                </svg>
+              </a>
+            </div>
+          </div>
         </div>
-      </div>
-      <form method="dialog" class="modal-backdrop">
-        <button>close</button>
-      </form>
-    </dialog>
-    @endsection
-        
-    @section('js')
-    <script>
-      $(document).ready(function() {
+        {{-- Cards --}}
+        <div class="flex flex-wrap gap-4 justify-center">
+          {{-- Make Adoption --}}
+          <div class="card bg-[#99a1af66] w-96 shadow-sm">
+            <figure>
+              <img src="{{ asset('images/moduleAdoption.png') }}" alt="Shoes" />
+            </figure>
+            <div class="card-body text-white">
+              <h2 class="card-title ">Make Adoption</h2>
+              <div class="card-actions justify-end">
+                <a class="btn btn-accent justify-center text-white" href="{{ url('makeadoption')  }}"> Enter<svg
+                    xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor" viewBox="0 0 256 256">
+                    <path
+                      d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm29.66-93.66a8,8,0,0,1,0,11.32l-40,40a8,8,0,0,1-11.32-11.32L140.69,128,106.34,93.66a8,8,0,0,1,11.32-11.32Z">
+                    </path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+          @endif
+
+        </div>
+        {{-- Modal --}}
+        <dialog id="modal_message" class="modal">
+          <div class="modal-box bg-sucess">
+            <h3 class="text-lg font-bold">Edited Duccessfully!</h3>
+            <div role="alert" class="alert alert-success">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>{{session('message')}}</span>
+            </div>
+          </div>
+          <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+          </form>
+        </dialog>
+
+
+        <dialog id="modal_session" class="modal">
+          <div class="modal-box bg-sucess">
+            <h3 class="text-lg font-bold">Sorry!</h3>
+            <div role="alert" class="alert alert-error">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>{{session('error')}}</span>
+            </div>
+          </div>
+          <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+          </form>
+        </dialog>
+        @endsection
+
+        @section('js')
+        <script>
+          $(document).ready(function() {
     // Modal session
     const modal_session = document.getElementById('modal_session');
     @if(session('error'))
@@ -320,5 +322,5 @@
       modal_message.showModal();
     @endif
   });
-    </script>
-    @endsection
+        </script>
+        @endsection
