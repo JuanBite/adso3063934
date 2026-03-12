@@ -1,0 +1,69 @@
+/* Fondo de la página */
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background: linear-gradient(135deg, #5c6975, #a0b3c5);
+}
+
+/* Contenedor del login */
+#login{
+background:white;
+padding:40px;
+border-radius:12px;
+width:350px;
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* Título */
+#login header h1{
+text-align:center;
+margin-bottom:25px;
+color:#5c6975;
+}
+
+/* Formulario */
+#loginForm{
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+
+/* Labels */
+#loginForm label{
+display:flex;
+flex-direction:column;
+font-size:14px;
+color:#333;
+}
+
+/* Inputs */
+#loginForm input{
+margin-top:5px;
+padding:10px;
+border-radius:6px;
+border:1px solid #ccc;
+transition:0.3s;
+}
+
+/* Efecto focus */
+#loginForm input:focus{
+outline:none;
+border-color:#1e90ff;
+box-shadow:0 0 5px rgba(30,144,255,0.4);
+}
+
+/* Botón */
+.btnLogin{
+margin-top:10px;
+padding:12px;
+border:none;
+border-radius:6px;
+background:#5c6975;
+color:white;
+font-size:16px;
+cursor:pointer;
+transition:0.3s;
+}
+

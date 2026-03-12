@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Monda:wght@500&display=swap');
+
+/* Body general */
+body {
+    font-family: Monda;
+    color: whitesmoke;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100dvh;
+    overflow: hidden;
+}
+
+/* Main login */
+main#login {
+    background-color: #3e3d32e8;
+    height: 526px;
+    width: 246px;
+    position: relative;
+    overflow: auto;
+    border-radius: 5px;
+    h1 {
+        color: white;
+    }
+}
+
+/* Login Form */
+main#login form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    padding: 0 0.6rem;
+    bottom: 1rem;
+    gap: 1rem;
+}
+
+/* Labels */
+main#login form label {
+    display: flex;
+    flex-direction: column;
+    color: whitesmoke;
+}
+
+/* Inputs */
+main#login form label input {
+    border: 2px whitesmoke solid;
+    color: white;
+    font-family: Monda;
+    border-radius: 10px;
+    height: 34px;
+    outline: none;
+    text-indent: 0.4rem;
+    width: 200px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+main#login form label input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Button */
+main#login form button {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    height: 38px;
+    width: 140px;
+    border-radius: 10px;
+    color: whitesmoke;
+    font-family: Monda;
+    transition: transform 0.2s ease-in;
+}
+
+main#login form button:hover {
+    transform: scale(1.025);
+}
