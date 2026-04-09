@@ -26,7 +26,7 @@ export default function SearchInput() {
     return (
         <input
             type="text"
-            placeholder="Buscar juego..."
+            placeholder="Buscar..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="bg-[#2a2d35] text-white placeholder-gray-500 border border-[#3a3d45] rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-purple-500 transition-colors w-64"

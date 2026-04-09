@@ -6,8 +6,8 @@ import {SquaresFourIcon, JoystickIcon, PlusIcon, GearIcon, ListIcon, GameControl
 export default function SideBar({currentPath = "/dashboard", children}:{currentPath: string, children: React.ReactNode}) {
     const navigation = [
     { name: "Dashboard", href: "/dashboard", icon: SquaresFourIcon },
-    { name: "Games",     href: "/games",     icon: JoystickIcon },
-    { name: "Add Game",  href: "/add",       icon: PlusIcon },
+    { name: "Games",     href: "/games",     icon: GameControllerIcon },
+    { name: "Consoles",  href: "/consoles",       icon: JoystickIcon },
     { name: "Settings",  href: "/settings",  icon: GearIcon },
   ];
     return (
