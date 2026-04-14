@@ -154,14 +154,6 @@ export async function createGame(
     const coverFile = formData.get("cover") as File | null;
     const oldValues = { ...rawValues };
 
-    // Validar cover
-    if (!coverFile || coverFile.size === 0) {
-        return {
-            success: false,
-            errors: { cover: "Cover image is required" },
-            oldValues,
-        };
-    }
 
     // Validar campos con Zod
     const parsed = GameSchema.safeParse(rawValues);
@@ -174,14 +166,18 @@ export async function createGame(
         return { success: false, errors, oldValues };
     }
 
-    // Guardar imagen
-    const imageResult = await saveImage(coverFile);
-    if ("error" in imageResult) {
-        return {
-            success: false,
-            errors: { cover: imageResult.error },
-            oldValues,
-        };
+    // Guardar imagen (opcional)
+    let coverFilename = "no-cover.png";
+    if (coverFile && coverFile.size > 0) {
+        const imageResult = await saveImage(coverFile);
+        if ("error" in imageResult) {
+            return {
+                success: false,
+                errors: { cover: imageResult.error },
+                oldValues,
+            };
+        }
+        coverFilename = imageResult.filename;
     }
 
     // Crear registro en DB
@@ -193,9 +189,8 @@ export async function createGame(
                 genre: parsed.data.genre,
                 price: parsed.data.price,
                 releasedate: new Date(parsed.data.releasedate),
-                // ✅ FIX: description nunca es undefined — el schema lo requiere como Text
                 description: parsed.data.description ?? "",
-                cover: imageResult.filename,
+                cover: coverFilename,
                 console_id: parsed.data.console_id,
             },
         });
@@ -326,9 +321,8 @@ export async function deleteGame(
 
         await prisma.game.delete({ where: { id } });
 
-        // ✅ FIX: "no-cover.png" en vez de "no-cover.jpg" (coincide con el schema)
         if (game.cover && game.cover !== "no-cover.png") {
-            const imagePath = path.join(process.cwd(), "public", "imgs", game.cover);
+            const imagePath = path.join(process.cwd(), "public", "img", game.cover);
             try {
                 await unlink(imagePath);
             } catch (err: unknown) {

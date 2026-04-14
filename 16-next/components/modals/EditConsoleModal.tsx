@@ -2,6 +2,8 @@
 
 import { useActionState, useEffect, useRef } from "react";
 import { updateConsole, ConsoleActionState } from "@/app/consoles/admin/Action";
+import { useToast } from "@/components/ToastProvider";
+
 
 interface ConsoleRecord {
     id: number;
@@ -21,6 +23,7 @@ interface Props {
 const initialState: ConsoleActionState = { success: false };
 
 export default function EditConsoleModal({ consoleRecord, isOpen, onClose }: Props) {
+    const { showToast } = useToast();
     const modalRef = useRef<HTMLDialogElement>(null);
     const formRef  = useRef<HTMLFormElement>(null);
 
@@ -36,6 +39,7 @@ export default function EditConsoleModal({ consoleRecord, isOpen, onClose }: Pro
 
     useEffect(() => {
         if (state.success) {
+                showToast("Console updated successfully! 🕹️");
             onClose();
         }
     }, [state.success]);
@@ -71,7 +75,7 @@ export default function EditConsoleModal({ consoleRecord, isOpen, onClose }: Pro
                             name="name"
                             type="text"
                             defaultValue={state.oldValues?.name ?? consoleRecord.name}
-                            className={`input input-bordered border-purple-400 w-full ${state.errors?.name ? "input-error" : ""}`}
+                            className={`input input-bordered border-purple-400 w-full focus:outline-none ${state.errors?.name ? "input-error" : ""}`}
                         />
                         {state.errors?.name && (
                             <label className="label">
@@ -89,7 +93,7 @@ export default function EditConsoleModal({ consoleRecord, isOpen, onClose }: Pro
                             name="manufacturer"
                             type="text"
                             defaultValue={state.oldValues?.manufacturer ?? consoleRecord.manufacturer}
-                            className={`input input-bordered border-purple-400 w-full ${state.errors?.manufacturer ? "input-error" : ""}`}
+                            className={`input input-bordered border-purple-400 w-full focus:outline-none ${state.errors?.manufacturer ? "input-error" : ""}`}
                         />
                         {state.errors?.manufacturer && (
                             <label className="label">
@@ -107,7 +111,7 @@ export default function EditConsoleModal({ consoleRecord, isOpen, onClose }: Pro
                             name="releasedate"
                             type="date"
                             defaultValue={state.oldValues?.releasedate ?? formattedDate}
-                            className={`input input-bordered border-purple-400 w-full ${state.errors?.releasedate ? "input-error" : ""}`}
+                            className={`input input-bordered border-purple-400 w-full focus:outline-none${state.errors?.releasedate ? "input-error" : ""}`}
                         />
                         {state.errors?.releasedate && (
                             <label className="label">
@@ -137,7 +141,7 @@ export default function EditConsoleModal({ consoleRecord, isOpen, onClose }: Pro
                             name="image"
                             type="file"
                             accept="image/jpeg,image/png,image/webp"
-                            className={`file-input file-input-bordered w-full bg-purple-600 hover:bg-purple-700 ${state.errors?.image ? "file-input-error" : ""}`}
+                            className={`file-input file-input-bordered w-full bg-purple-600 hover:bg-purple-700 focus:outline-none${state.errors?.image ? "file-input-error" : ""}`}
                         />
                         {state.errors?.image && (
                             <label className="label">
@@ -157,7 +161,7 @@ export default function EditConsoleModal({ consoleRecord, isOpen, onClose }: Pro
                             rows={3}
                             maxLength={500}
                             defaultValue={state.oldValues?.description ?? consoleRecord.description}
-                            className={`textarea textarea-bordered border-purple-400 w-full resize-none ${state.errors?.description ? "textarea-error" : ""}`}
+                            className={`textarea textarea-bordered border-purple-400 w-full resize-none focus:outline-none ${state.errors?.description ? "textarea-error" : ""}`}
                         />
                         {state.errors?.description && (
                             <label className="label">

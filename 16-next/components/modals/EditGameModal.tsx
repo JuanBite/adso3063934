@@ -2,6 +2,7 @@
 
 import { useActionState, useEffect, useRef } from "react";
 import { updateGame, ActionState } from "@/app/games/admin/Action";
+import { useToast } from "@/components/ToastProvider";
 
 interface Console {
     id: number;
@@ -30,6 +31,7 @@ interface Props {
 const initialState: ActionState = { success: false };
 
 export default function EditGameModal({ game, consoles, isOpen, onClose }: Props) {
+    const { showToast } = useToast();
     const modalRef = useRef<HTMLDialogElement>(null);
     const formRef  = useRef<HTMLFormElement>(null);
 
@@ -48,6 +50,7 @@ export default function EditGameModal({ game, consoles, isOpen, onClose }: Props
     useEffect(() => {
         if (state.success) {
             onClose();
+            showToast("Game updated successfully! 🎮");
         }
     }, [state.success]);
 
@@ -83,7 +86,7 @@ export default function EditGameModal({ game, consoles, isOpen, onClose }: Props
                             name="title"
                             type="text"
                             defaultValue={state.oldValues?.title ?? game.title}
-                            className={`input input-bordered w-full border-purple-400 ${state.errors?.title ? "input-error" : ""}`}
+                            className={`input input-bordered w-full border-purple-400 focus:outline-none ${state.errors?.title ? "input-error" : ""}`}
                         />
                         {state.errors?.title && (
                             <label className="label">
@@ -101,7 +104,7 @@ export default function EditGameModal({ game, consoles, isOpen, onClose }: Props
                             name="developer"
                             type="text"
                             defaultValue={state.oldValues?.developer ?? game.developer}
-                            className={`input input-bordered w-full border-purple-400 ${state.errors?.developer ? "input-error" : ""}`}
+                            className={`input input-bordered w-full border-purple-400 focus:outline-none ${state.errors?.developer ? "input-error" : ""}`}
                         />
                         {state.errors?.developer && (
                             <label className="label">
@@ -120,7 +123,7 @@ export default function EditGameModal({ game, consoles, isOpen, onClose }: Props
                                 name="genre"
                                 type="text"
                                 defaultValue={state.oldValues?.genre ?? game.genre}
-                                className={`input input-bordered w-full border-purple-400 ${state.errors?.genre ? "input-error" : ""}`}
+                                className={`input input-bordered w-full border-purple-400 focus:outline-none ${state.errors?.genre ? "input-error" : ""}`}
                             />
                             {state.errors?.genre && (
                                 <label className="label">
@@ -140,7 +143,7 @@ export default function EditGameModal({ game, consoles, isOpen, onClose }: Props
                                 min="0"
                                 max="999.99"
                                 defaultValue={state.oldValues?.price ?? game.price}
-                                className={`input input-bordered border-purple-400 w-full ${state.errors?.price ? "input-error" : ""}`}
+                                className={`input input-bordered border-purple-400 w-full focus:outline-none ${state.errors?.price ? "input-error" : ""}`}
                             />
                             {state.errors?.price && (
                                 <label className="label">
@@ -159,7 +162,7 @@ export default function EditGameModal({ game, consoles, isOpen, onClose }: Props
                             <select
                                 name="console_id"
                                 defaultValue={state.oldValues?.console_id ?? game.console_id}
-                                className={`select select-bordered border-purple-400 w-full ${state.errors?.console_id ? "select-error" : ""}`}
+                                className={`select select-bordered border-purple-400 w-full  focus:outline-none${state.errors?.console_id ? "select-error" : ""}`}
                             >
                                 {consoles.map((c) => (
                                     <option key={c.id} value={c.id}>
@@ -182,7 +185,7 @@ export default function EditGameModal({ game, consoles, isOpen, onClose }: Props
                                 name="releasedate"
                                 type="date"
                                 defaultValue={state.oldValues?.releasedate ?? formattedDate}
-                                className={`input input-bordered border-purple-400 w-full ${state.errors?.releasedate ? "input-error" : ""}`}
+                                className={`input input-bordered border-purple-400 w-full focus:outline-none ${state.errors?.releasedate ? "input-error" : ""}`}
                             />
                             {state.errors?.releasedate && (
                                 <label className="label">
@@ -213,7 +216,7 @@ export default function EditGameModal({ game, consoles, isOpen, onClose }: Props
                             name="cover"
                             type="file"
                             accept="image/jpeg,image/png,image/webp"
-                            className={`file-input file-input-bordered w-full bg-purple-600 hover:bg-purple-700 ${state.errors?.cover ? "file-input-error" : ""}`}
+                            className={`file-input file-input-bordered w-full bg-purple-600 hover:bg-purple-700 focus:outline-none ${state.errors?.cover ? "file-input-error" : ""}`}
                         />
                         {state.errors?.cover && (
                             <label className="label">
@@ -233,7 +236,7 @@ export default function EditGameModal({ game, consoles, isOpen, onClose }: Props
                             rows={3}
                             maxLength={500}
                             defaultValue={state.oldValues?.description ?? game.description}
-                            className={`textarea textarea-bordered w-full border-purple-400 resize-none ${state.errors?.description ? "textarea-error" : ""}`}
+                            className={`textarea textarea-bordered w-full border-purple-400 resize-none focus:outline-none ${state.errors?.description ? "textarea-error" : ""}`}
                         />
                         {state.errors?.description && (
                             <label className="label">

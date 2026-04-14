@@ -3,10 +3,12 @@
 import { useActionState, useEffect, useRef } from "react";
 import { createConsole, ConsoleActionState } from "@/app/consoles/admin/Action";
 import PlusIcon from "@/components/icons/PlusIcon";
+import { useToast } from "@/components/ToastProvider";
 
 const initialState: ConsoleActionState = { success: false };
 
 export default function CreateConsoleModal() {
+    const { showToast } = useToast();
     const modalRef = useRef<HTMLDialogElement>(null);
     const formRef = useRef<HTMLFormElement>(null);
 
@@ -15,6 +17,7 @@ export default function CreateConsoleModal() {
     // Cierra y resetea el form cuando el create es exitoso
     useEffect(() => {
         if (state.success) {
+            showToast("Console created successfully! 🕹️");
             modalRef.current?.close();
             formRef.current?.reset();
         }
@@ -54,7 +57,7 @@ export default function CreateConsoleModal() {
                                 type="text"
                                 placeholder="e.g. PlayStation 5"
                                 defaultValue={state.oldValues?.name}
-                                className={`input input-bordered w-full border-purple-400 ${state.errors?.name ? "input-error" : ""}`}
+                                className={`input input-bordered w-full border-purple-400 focus:outline-none${state.errors?.name ? "input-error" : ""}`}
                             />
                             {state.errors?.name && (
                                 <label className="label">
@@ -73,7 +76,7 @@ export default function CreateConsoleModal() {
                                 type="text"
                                 placeholder="e.g. Sony"
                                 defaultValue={state.oldValues?.manufacturer}
-                                className={`input input-bordered w-full border-purple-400 ${state.errors?.manufacturer ? "input-error" : ""}`}
+                                className={`input input-bordered w-full border-purple-400 focus:outline-none ${state.errors?.manufacturer ? "input-error" : ""}`}
                             />
                             {state.errors?.manufacturer && (
                                 <label className="label">
@@ -91,7 +94,7 @@ export default function CreateConsoleModal() {
                                 name="releasedate"
                                 type="date"
                                 defaultValue={state.oldValues?.releasedate}
-                                className={`input input-bordered w-full border-purple-400 ${state.errors?.releasedate ? "input-error" : ""}`}
+                                className={`input input-bordered w-full border-purple-400 focus:outline-none ${state.errors?.releasedate ? "input-error" : ""}`}
                             />
                             {state.errors?.releasedate && (
                                 <label className="label">
@@ -109,7 +112,7 @@ export default function CreateConsoleModal() {
                                 name="image"
                                 type="file"
                                 accept="image/jpeg,image/png,image/webp"
-                                className={`file-input file-input-bordered border-purple-400 w-full bg-purple-600 hover:bg-purple-700 ${state.errors?.image ? "file-input-error" : ""}`}
+                                className={`file-input file-input-bordered border-purple-400 w-full bg-purple-600 hover:bg-purple-700 focus:outline-none ${state.errors?.image ? "file-input-error" : ""}`}
                             />
                             {state.errors?.image && (
                                 <label className="label">
@@ -130,7 +133,7 @@ export default function CreateConsoleModal() {
                                 maxLength={500}
                                 placeholder="Short description of the console..."
                                 defaultValue={state.oldValues?.description}
-                                className={`textarea textarea-bordered w-full resize-none border-purple-400 ${state.errors?.description ? "textarea-error" : ""}`}
+                                className={`textarea textarea-bordered w-full resize-none border-purple-400 focus:outline-none ${state.errors?.description ? "textarea-error" : ""}`}
                             />
                             {state.errors?.description && (
                                 <label className="label">

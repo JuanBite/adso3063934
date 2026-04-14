@@ -72,7 +72,7 @@ export default async function ConsolesInfo({ searchParams }) {
                         <div className="absolute inset-0 bg-black/30 group-hover:bg-black/60 transition-all duration-500" />
 
                         {/* Acciones */}
-                        
+
 
                         {/* Badge */}
                         <div className="absolute top-2 left-2 bg-black/70 text-white text-xs px-3 py-1 rounded-full">
@@ -95,16 +95,25 @@ export default async function ConsolesInfo({ searchParams }) {
                                 {console.description}
                             </p>
                             <div className="flex gap-2 mt-2 justify-between">
-                            <EditConsoleButton consoleRecord={console} />
-                            <DeleteConsoleButton 
-                                consoleId={console.id} 
-                                consoleName={console.name} 
-                            />
-                        </div>
+                                <EditConsoleButton consoleRecord={console} />
+                                <DeleteConsoleButton
+                                    consoleId={console.id}
+                                    consoleName={console.name}
+                                />
+                            </div>
                         </div>
                     </div>
                 ))}
             </div>
+            {consoles.length === 0 && (
+                <div className="flex flex-col items-center justify-center mt-20 gap-3 text-gray-400">
+                    <span className="text-5xl">🔍</span>
+                    <p className="text-lg font-medium">No consoles found</p>
+                    <p className="text-sm">
+                        Try a different search
+                    </p>
+                </div>
+            )}
 
             {/* PAGINACIÓN */}
             <Pagination currentPage={currentPage} totalPages={totalPages} />

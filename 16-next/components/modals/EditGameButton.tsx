@@ -4,6 +4,7 @@ import { useState } from "react";
 import PencilIcon from "@/components/icons/PencilIcon";
 import EditGameModal from "@/components/modals/EditGameModal";
 
+
 interface Console {
     id: number;
     name: string;
